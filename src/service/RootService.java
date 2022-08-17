@@ -68,6 +68,7 @@ public class RootService {
 		String userID = ScanUtil.nextLine();
 		System.out.print(" 비밀번호 >>> ");
 		String userPass = ScanUtil.nextLine();
+		System.out.println("└──────────────────┘");
 		ControllerV2.userInfo = dao.login(userID, userPass);
 		if (ControllerV2.userInfo == null
 				|| ControllerV2.userInfo.size() == 0) {
