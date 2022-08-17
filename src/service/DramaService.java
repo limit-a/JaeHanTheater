@@ -105,8 +105,10 @@ public class DramaService {
    
    public int dramaTicketing() {
       
-      
-      System.out.println("<현재 예매 가능한 연극>");
+      System.out.println();
+      System.out.println("▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰");
+      System.out.println("[예매 가능 연극]");
+      System.out.println();
       int count = 0;
       
       List<Map<String, Object>> nDrama = dd.showNDrama(selectedDrama); // 상영중인 극
@@ -128,7 +130,8 @@ public class DramaService {
             
          }
       }
-
+      System.out.println();
+      System.out.println("▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰");
       System.out.print("선택>>");
       int choose = ScanUtil.nextInt();
       System.out.print("구매 갯수>>");
@@ -145,7 +148,7 @@ public class DramaService {
          param2.add(nDrama.get(choose-1).get("THEATER_ID"));
          System.out.println("═══════════════ 명세서 ═══════════════");
          System.out.println("연극명 : " + nDrama.get(choose-1).get("THEATER_TITLE"));
-         System.out.println("공연 날짜 :" + sdf.format(nDrama.get(choose-1).get("THEATER_DATE")));
+         System.out.println("공연 날짜 : " + sdf.format(nDrama.get(choose-1).get("THEATER_DATE")));
          System.out.println("예매 수량 : " + qty );
          System.out.println("총 금액 : " + qty * Integer.parseInt(String.valueOf(nDrama.get(choose-1).get("THEATER_PRICE"))));
          System.out.println("══════════════════════════════════════");
@@ -175,32 +178,34 @@ public class DramaService {
    
 
    public int showDramaInfo() {
-      System.out.println("================극정보===================");
+	  System.out.println();
+      System.out.println("•─────────────────── 연극 정보 ───────────────────•"); 
       List<Map<String,Object>> row = new ArrayList<Map<String,Object>>();
       row = dd.getDrama(selectedDrama);
       
       if(Integer.parseInt(String.valueOf(row.get(0).get("THEATER_START"))) - Integer.parseInt(sdf.format(new Date()) ) > 0) { // 상영예정 
-         System.out.println("[상영 예정]");
+         System.out.println(" [상영 예정]");
       }
       else if(Integer.parseInt(String.valueOf(row.get(0).get("THEATER_END"))) - Integer.parseInt(sdf.format(new Date()) ) < 0) {
          // 상영종료 
-         System.out.println("[상영 종료]");
+         System.out.println(" [상영 종료]");
       }
       else {
-         System.out.println("[상영중]");
+         System.out.println(" [상영중]");
       }
-      System.out.println("<"+selectedDrama+">");
-      System.out.println(row.get(0).get("THEATER_CONTENT"));
-      //[{THEATER_CONTENT=이 노래를 만들고 부르면 다시 봄이 올 거예요., THEATER_END=20220722, THEATER_TITLE=하데스, THEATER_START=20220720}]
-      System.out.println("공연기간 : " +row.get(0).get("THEATER_START")+ " ~ " +row.get(0).get("THEATER_END"));
-      System.out.println("티켓 가격 : " + row.get(0).get("THEATER_PRICE"));
       System.out.println("");
+      System.out.println(" ⸙"+selectedDrama+"⸙");
+      System.out.println(" " + row.get(0).get("THEATER_CONTENT"));
+      //[{THEATER_CONTENT=이 노래를 만들고 부르면 다시 봄이 올 거예요., THEATER_END=20220722, THEATER_TITLE=하데스, THEATER_START=20220720}]
+      System.out.println(" 공연기간 : " +row.get(0).get("THEATER_START")+ " ~ " +row.get(0).get("THEATER_END"));
+      System.out.println(" 티켓 가격 : " + row.get(0).get("THEATER_PRICE"));
+      System.out.println("•─────────────────────────────────────────────────•");
       System.out.println();
       if(Integer.parseInt(String.valueOf(row.get(0).get("THEATER_START"))) - Integer.parseInt(sdf.format(new Date()) ) > 0) { // 상영예정 
          System.out.println("┌─────────────────────────────────────────┐");
     	 System.out.println("│  1.리뷰 자세히 보기  0.홈으로 돌아가기  │");
     	 System.out.println("└─────────────────────────────────────────┘");
-    	 System.out.println("선택 >>> ");
+    	 System.out.print("선택 >>> ");
          switch(ScanUtil.nextInt()) {
          case 1: return View2.DRAMA_REVIEW;
          case 0: selectedDrama = null; return View2.HOME;
@@ -212,7 +217,7 @@ public class DramaService {
     	 System.out.println("┌─────────────────────────────────────────┐");
          System.out.println("│  1.리뷰 자세히 보기  0.홈으로 돌아가기  │");
          System.out.println("└─────────────────────────────────────────┘");
-         System.out.println("선택 >>> ");
+         System.out.print("선택 >>> ");
          switch(ScanUtil.nextInt()) {
          case 1: return View2.DRAMA_REVIEW;
          case 0: selectedDrama = null; return View2.HOME;
@@ -223,11 +228,11 @@ public class DramaService {
     	 System.out.println("┌───────────────────────────────────────────────────┐");
          System.out.println("│  1.리뷰 자세히 보기 2.예매하기 0.홈으로 돌아가기  │");
          System.out.println("└───────────────────────────────────────────────────┘");
-         System.out.println("선택 >>> ");
+         System.out.print("선택 >>> ");
          switch(ScanUtil.nextInt()) {
          case 1: return View2.DRAMA_REVIEW;
          case 2: if(ControllerV2.userInfo== null) {
-            System.out.println("로그인후 이용가능"); return View2.HOME;
+            System.out.println("로그인후 이용 가능합니다."); return View2.HOME;
          }
          else {
             return View2.DRAMA_TICKETTING;

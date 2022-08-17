@@ -184,7 +184,7 @@ public class ControllerV2 {
 	}
 	
 	public static void poster() {
-		System.out.println("");
+		System.out.println("진행중인 공연");
 		System.out.println("⣿⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⣿⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⣿");
 		System.out.println("⣿⠀⠀⠀⠀⠀⠀⠀⠀⣴⠂⣐⣆⠀⠀⠀⠀⠀⠀⠀      ⠀  ⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀	       ⠀⣿");
 		System.out.println("⣿⠀⠀⠀⠀⠀⠀⠀⠀⣹⣷⣿⣏⡀⠀⠀⠀⠀⠀⠀⠀        ⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀     ⣿");
@@ -204,6 +204,7 @@ public class ControllerV2 {
 		System.out.println("⣿⠈⠈⠀⠈⠉⠁⠉⠉⠀⠈⠉⠁⠉⠉⠀⠈⠉⠁⠉⠉⠀ ⣿⠤⣿⠃⠿⠀⠀⠀⠀⠁⠀⠀⠀⠘⠃⠀⠀⠀⠀⠠⠿⠷⡟⠉⠁ ⣿");
 		System.out.println("⣿⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣿⣼⣿⣿⣧⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣦⣿⣿⣷⣿");
 		System.out.println("시간을 파는 상점 \t 드립소년단");
+		System.out.println("");
 		ScanUtil.nextLine();
 		clearScreen();
 	}
