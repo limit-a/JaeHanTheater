@@ -1,5 +1,8 @@
 package service;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import controller.ControllerV2;
@@ -22,6 +25,9 @@ public class UserService {
 	}
 
 	UserDAO userDAO = UserDAO.getInstance();
+	Map<String, Object> userTicketing = null;
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
 
 	public int showPage() {
 		Object nick = ControllerV2.userInfo.get("USER_NICK");
@@ -61,7 +67,7 @@ public class UserService {
 		System.out.println("아이디 : " + userInfo.get("USER_ID"));
 		System.out.println("닉네임 : " + userInfo.get("USER_NICK"));
 		System.out.println("이름 : " + userInfo.get("USER_NAME"));
-		System.out.print("생년월일 : " );
+		System.out.print("생년월일 : ");
 		System.out.printf("%tF\n", userInfo.get("USER_BIRTH"));
 		System.out.println("전화번호 : " + userInfo.get("USER_PHONE"));
 		System.out.println("이메일 : " + userInfo.get("USER_EMAIL"));
@@ -140,5 +146,79 @@ public class UserService {
 			}
 		}
 	}
+
+	
+	public int showMyTicketing() {
+		   
+		   System.out.println("==============내 예매내역========================");
+		   int count = 0;
+		   List<Map<String,Object>> myTicketList = new ArrayList<Map<String,Object>>();
+		   myTicketList = userDAO.myTicketList();
+		   
+		   if(myTicketList == null) {
+		      System.out.println("예매 내역이 없습니다 ! ");
+		      return View2.USER;
+		   }
+		   // 예매내역이 있으면    1. 돌아가기  2. 환불  
+		   System.out.println(myTicketList);
+		   for(Map<String,Object> item : myTicketList) {
+		      System.out.println(++count + "극 이름:" + item.get("THEATER_TITLE") + "예매 수량 " + item.get("TICKETING_QTY") + "결제금액 :" + item.get("A.TICKETING_QTY*C.THEATER_PRICE") + "구매시간:" +sdf.format(item.get("TICKETING_DATE")));
+		   }
+		   try {
+		      System.out.println("선택>>");
+		      int choose = ScanUtil.nextInt();
+		      userTicketing = myTicketList.get(choose-1);
+		      //[{A.TICKETING_QTY*C.THEATER_PRICE=48000, TICKETING_QTY=3, TICKETING_ID=0022-0817-0034, THEATER_TIME2=21:00, TICKETING_DATE=2022-08-17 12:18:46.0, THEATER_TIME1=19:00, THEATER_TITLE=드립소년단, THEATER_NAME=행복관}, {A.TICKETING_QTY*C.THEATER_PRICE=32000, TICKETING_QTY=2, TICKETING_ID=0022-0817-0035, THEATER_TIME2=21:00, TICKETING_DATE=2022-08-17 12:19:10.0, THEATER_TIME1=19:00, THEATER_TITLE=시간을 파는 상점, THEATER_NAME=믿음관}]
+		      System.out.println(userTicketing.get("TICKETING_ID"));
+		      System.out.println("티켓번호:" +userTicketing.get("TICKETING_ID") + "극이름 :" + userTicketing.get("THEATER_TITLE") + "상영시간" + userTicketing.get("THEATER_TIME1") +"~"+ userTicketing.get("THEATER_TIME2") + "상영관" + userTicketing.get("THEATER_NAME"));
+		      System.out.println("1.돌아가기 2. 환불하기 ");
+		      switch(ScanUtil.nextInt()) {
+		      case 1: userTicketing = null; return View2.USER;
+		      case 2: return View2.USER_REFUND;
+		      default : return View2.USER;
+		      }
+		      
+		   }catch(Exception e) {
+		      System.out.println("잘못입력");
+		      return View2.USER;
+		   }
+		   
+		}
+	
+	public int refundTicketing() { 
+		/*
+		 *  환불 : 
+		 *     1. 회원의 티켓팅 번호를 가져옴 
+		 *     2. 선택 후  예매 정보는 삭제 안하고  refunddate 기입  
+		 *     3. 해당 ticketing_id를 가지고 ticket 삭제 
+		 *     4. 트리거로 인해 ticket삭제시 잔여좌석 반환 
+		 */
+		   System.out.println("해당 예매를 취소하시겠습니까?");
+		   System.out.println("1. 예 2. 아니오");
+		   while (true) {
+		   System.out.print("입력 >>> ");
+		   switch (ScanUtil.nextInt()) {
+		   case 1:
+		      int result = userDAO.refundTicketing(userTicketing.get("TICKETING_ID"));
+		      userTicketing = null;
+		      return View2.USER;
+		   case 2:
+		      return View2.USER;
+
+		   default:
+		      break;
+		   }
+		}
+		   
+		}
+	
+	
+
+
+	
+//	public int showUserReview() {
+//		Map<String, Object> row = userDAO.showUserReview();
+//		return 0;
+//	}
 
 }

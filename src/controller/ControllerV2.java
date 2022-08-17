@@ -11,7 +11,7 @@ import util.ScanUtil;
 import util.View2;
 
 public class ControllerV2 {
-	
+
 	//
 	// !?!?!? 먼저 JDBCUtil url, user, password 확인 !?!?!?!?
 	//
@@ -65,9 +65,10 @@ public class ControllerV2 {
 				view = userService.modifyPass();
 				break;
 			case View2.USER_DRAMA:
-//				view = userService.
+				view = userService.showMyTicketing();
 				break;
 			case View2.USER_REFUND:
+				view = userService.refundTicketing();
 				break;
 			case View2.USER_REVIEW:
 //				view = userService.showUserReview();
@@ -91,24 +92,23 @@ public class ControllerV2 {
 			case View2.BOARD_DELETE:
 				view = boardService.deleteBoard(pageStatus);
 				break;
-				
-			case View2.DRAMA:
-	             view = dramaService.showDramaList(loggedInUser);
-	             break;
-	         case View2.DRAMA_INFO:
-	             view = dramaService.showDramaInfo();
-	             break;
-	         case View2.DRAMA_TICKETTING:
-	             view = dramaService.dramaTicketing();
-	             break;
-	         case View2.DRAMA_REVIEW:
-	             view = dramaService.dramaReview();
-	             break;
-	         case View2.DRAMA_REFUND:
-	             view = dramaService.ticketRefund();
-	             break;
 
-				
+			case View2.DRAMA:
+				view = dramaService.showDramaList(loggedInUser);
+				break;
+			case View2.DRAMA_INFO:
+				view = dramaService.showDramaInfo();
+				break;
+			case View2.DRAMA_TICKETTING:
+				view = dramaService.dramaTicketing();
+				break;
+			case View2.DRAMA_REVIEW:
+				view = dramaService.dramaReview();
+				break;
+			case View2.DRAMA_REFUND:
+				view = dramaService.ticketRefund();
+				break;
+
 			case View2.REVIEW:
 				view = reviewService.showReview();
 				break;
@@ -160,7 +160,7 @@ public class ControllerV2 {
 		}
 
 	}
-	
+
 	public static void clearScreen() {
 		for (int i = 0; i < 70; i++) {
 			System.out.println();
@@ -182,7 +182,7 @@ public class ControllerV2 {
 		clearScreen();
 
 	}
-	
+
 	public static void poster() {
 
 		System.out.println("⣿⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⣿⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⣿");
@@ -207,5 +207,5 @@ public class ControllerV2 {
 		ScanUtil.nextLine();
 		clearScreen();
 	}
-	
+
 }

@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.List;
 import java.util.Map;
 
 import controller.ControllerV2;
@@ -73,5 +74,40 @@ public class UserDAO {
 		Map<String, Object> row = jdbc.selectOne(sql);
 		return row;
 	}
+
+	public List<Map<String, Object>> myTicketList() {
+		   
+		   sql =    "SELECT distinct A.TICKETING_QTY*C.THEATER_PRICE, " + 
+		         "       C.THEATER_TITLE, " + 
+		         "       A.TICKETING_DATE, " + 
+		         "       a.ticketing_id, " + 
+		         "       A.TICKETING_QTY, " + 
+		         "       c.theater_name, " + 
+		         "       c.theater_time1, " + 
+		         "       c.theater_time2 " + 
+		         " FROM TICKETING A, TICKET B, THEATER C " + 
+		         " WHERE A.TICKETING_ID = B.ticketing_id " + 
+		         " AND   B.THEATER_ID = C.THEATER_ID "+
+		         " AND   A.TICKETING_REFUNDDATE IS NULL "+
+		         " AND  a.user_id ='"+ ControllerV2.userInfo.get("USER_ID")+"'";
+		   List<Map<String,Object>> row = jdbc.selectList(sql);
+		   
+		   return row;
+		}
+	
+	public int refundTicketing(Object selectedTicketing) {
+		   sql = " DELETE FROM TICKET WHERE TICKETING_ID= '"+selectedTicketing+"' ";
+		   jdbc.update(sql);
+		   sql = " UPDATE TICKETING SET TICKETING_REFUNDDATE=SYSDATE WHERE TICKETING_ID='"+selectedTicketing+"' ";
+		   int result = jdbc.update(sql);
+		   return result;
+		}
+
+
+	
+//	public Map<String, Object> showUserReview() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 }
