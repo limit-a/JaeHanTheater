@@ -100,11 +100,7 @@ public class DramaDAO {
 
       sql = "SELECT TICKETING_ID FROM TICKETING WHERE user_id= '"+ param.get(1) + "' and TICKETING_STATUS = 0" ;
       List<Map<String, Object>> row = jdbc.selectList(sql);
-//      System.out.println(row);
-//      System.out.println(String.valueOf(param.get(1)));
-//      System.out.println(row.get(0).get("TICKETING_ID"));
-//      System.out.println(param2.get(0));
-//      System.out.println(param.get(1));
+
       
       sql = "INSERT INTO TICKET VALUES(LPAD(SEQ_TICKET.NEXTVAL,4,'0'),'"+row.get(0).get("TICKETING_ID")+"','" +param2.get(0)+"')";
       

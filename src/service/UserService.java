@@ -185,7 +185,7 @@ public class UserService {
 		List<Map<String, Object>> row = userDAO.showUserBoard();
 		if (row == null || row.size() == 0) {
 			System.out.println("유저가 작성한 게시판이 없습니다.");
-			return View2.USER_STATUS;
+			return View2.USER;
 		} else {
 			System.out.println();
 			System.out.println("▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬");

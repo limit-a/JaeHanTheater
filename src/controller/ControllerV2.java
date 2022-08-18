@@ -130,13 +130,13 @@ public class ControllerV2 {
 
 	private int home() {
 
-		System.out.println("┌──────────────────────────────────────────────────┐");
+		System.out.println("┌─────────────────────────────────────────────┐");
 		if (!loggedInUser) {
-			System.out.println("│\t1. 연극 2. 게시판 3. 로그인 4. 회원가입\t   │");
+			System.out.println("│   1. 연극 2. 게시판 3. 로그인 4. 회원가입   │");
 		} else {
-			System.out.println("│    1. 연극 2. 게시판 3. 마이페이지 4. 로그아웃   │");
+			System.out.println("│ 1. 연극 2. 게시판 3. 마이페이지 4. 로그아웃 │");
 		}
-		System.out.println("└──────────────────────────────────────────────────┘");
+		System.out.println("└─────────────────────────────────────────────┘");
 		System.out.print("입력 >>> ");
 		switch (ScanUtil.nextInt()) {
 		case 1:

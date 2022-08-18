@@ -41,8 +41,13 @@ public class RootService {
 		String userNick = ScanUtil.nextLine();
 		System.out.print(" 이름 >>> ");
 		String userName = ScanUtil.nextLine();
-		System.out.print(" 생년월일 >>> ");
+		System.out.print(" 생년월일(6자리) >>> ");
 		String userBirth = ScanUtil.nextLine();
+		if (userBirth.length() != 6) {
+			System.out.println("생년월일 입력을 6자리로 해주세요.");
+			System.out.println("(예시 : 991231)");
+			return View2.HOME;
+		}
 		System.out.print(" 휴대폰 번호 >>> ");;
 		String userPhone = ScanUtil.nextLine();
 		System.out.print(" 이메일 >>> ");
