@@ -293,7 +293,7 @@ public class UserService {
 			case 1:
 				System.out.println("비밀번호를 입력하세요 >> ");
 				String pass = ScanUtil.nextLine();
-				if (pass == ControllerV2.userInfo.get("USER_PW")) {
+				if (ControllerV2.userInfo.get("USER_PW").equals(pass)) {
 					int result = userDAO.refundTicketing(userTicketing.get("TICKETING_ID"));
 					userTicketing = null;
 					System.out.println("환불 완료!");

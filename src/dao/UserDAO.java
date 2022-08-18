@@ -110,7 +110,8 @@ public class UserDAO {
 				+ " AND   B.THEATER_ID = C.THEATER_ID "
 				+ " AND   A.TICKETING_REFUNDDATE IS NULL "
 				+ " AND  a.user_id ='" + ControllerV2.userInfo.get("USER_ID")
-				+ "'";
+				+ "' "
+				+ " AND  TO_DATE(c.theater_end) <= SYSDATE ";
 		List<Map<String, Object>> row = jdbc.selectList(sql);
 
 		return row;
