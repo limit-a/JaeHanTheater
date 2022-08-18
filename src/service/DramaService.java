@@ -1,5 +1,6 @@
 package service;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -47,7 +48,8 @@ public class DramaService {
 		System.out.println("▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬");
 		System.out.println(" ღ  지난 공연 ღ ");
 		System.out.println();
-		if (eDrama == null) System.out.println("없음");
+		if (eDrama == null)
+			System.out.println("없음");
 		else {
 			for (Map<String, Object> item : eDrama) {
 				System.out.println(++count + " " + item.get("THEATER_TITLE"));
@@ -59,7 +61,8 @@ public class DramaService {
 		System.out.println("┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈");
 		System.out.println(" ღ  공연 중 ღ ");
 		System.out.println();
-		if (nDrama == null) System.out.println("없음");
+		if (nDrama == null)
+			System.out.println("없음");
 		else {
 			for (Map<String, Object> item : nDrama) {
 				System.out.println(++count + " " + item.get("THEATER_TITLE"));
@@ -70,7 +73,8 @@ public class DramaService {
 		System.out.println("┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈");
 		System.out.println(" ღ  공연 예정 ღ ");
 		System.out.println();
-		if (uDrama == null) System.out.println("없음");
+		if (uDrama == null)
+			System.out.println("없음");
 		else {
 			for (Map<String, Object> item : uDrama) {
 				System.out.println(++count + " " + item.get("THEATER_TITLE"));
@@ -181,7 +185,7 @@ public class DramaService {
 				if (result > 0) {
 					dd.ticket(param, param2);
 					System.out.println("예매가 완료되었습니다.");
-				} else {					
+				} else {
 					System.out.println("예매를 실패하였습니다.");
 				}
 				return View2.HOME;
@@ -198,21 +202,31 @@ public class DramaService {
 	}
 
 	public int showDramaInfo() {
-		System.out.println("•─────────────────── 연극 정보 ───────────────────•");
+
 		List<Map<String, Object>> row = new ArrayList<Map<String, Object>>();
+
 		row = dd.getDrama(selectedDrama);
+
+		Date theaterStart = null;
+		Date theaterEnd = null;
+
+		try {
+			theaterStart = sdf.parse((String) row.get(0).get("THEATER_START"));
+			theaterEnd = sdf.parse((String) row.get(0).get("THEATER_END"));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
 		// 시간을 기준으로 연극 날짜와 비교하여 공연종료, 공연중, 공연예정 구분
-		if (Integer.parseInt(String.valueOf(row.get(0).get("THEATER_START")))
-				- Integer.parseInt(sdf.format(new Date())) > 0) { // 공연예정
-			System.out.println("[공연 예정]");
-		} else if (Integer
-				.parseInt(String.valueOf(row.get(0).get("THEATER_END")))
-				- Integer.parseInt(sdf.format(new Date())) < 0) {
-			// 공연종료
+		System.out.println("•─────────────────── 연극 정보 ───────────────────•");
+		if (new Date().after(theaterEnd)) {
 			System.out.println("[공연 종료]");
+		} else if (new Date().before(theaterStart)) {
+			System.out.println("[공연 예정]");
 		} else {
 			System.out.println("[공연중]");
 		}
+
 		System.out.println("⸙" + selectedDrama + "⸙");
 		System.out.println(row.get(0).get("THEATER_CONTENT"));
 		System.out.println("공연기간 : " + row.get(0).get("THEATER_START") + " ~ "
@@ -222,57 +236,100 @@ public class DramaService {
 				.println("•─────────────────────────────────────────────────•");
 		System.out.println();
 
-		if (Integer.parseInt(String.valueOf(row.get(0).get("THEATER_START")))
-				- Integer.parseInt(sdf.format(new Date())) > 0) { // 상영예정
-			System.out.println("1.리뷰 자세히 보기  0.홈으로 돌아가기");
-			switch (ScanUtil.nextInt()) {
-			case 1:
-				return View2.REVIEW;
-			case 0:
-				selectedDrama = null;
-				return View2.HOME;
-			default:
-				return View2.HOME;
-			}
-		} else if (Integer
-				.parseInt(String.valueOf(row.get(0).get("THEATER_END")))
-				- Integer.parseInt(sdf.format(new Date())) < 0) {
-			// 상영종료
-			System.out.println("┌────────────────────────────────┐");
-			System.out.println("│ 1.리뷰 보기  0.홈으로 돌아가기 │");
-			System.out.println("└────────────────────────────────┘");
-			System.out.print("선택 >>> ");
-			switch (ScanUtil.nextInt()) {
-			case 1:
-				return View2.REVIEW;
-			case 0:
-				selectedDrama = null;
-				return View2.HOME;
-			default:
-				return View2.HOME;
-			}
+		if (new Date().equals(theaterEnd) || new Date().after(theaterEnd)) {
+			System.out.println("┌───────────────────────────────┐");
+			System.out.println("│ 1.리뷰 보기 0.홈으로 돌아가기 │");
+			System.out.println("└───────────────────────────────┘");
+		} else if (new Date().before(theaterStart)) {
+			System.out.println("┌───────────────────┐");
+			System.out.println("│ 0.홈으로 돌아가기 │");
+			System.out.println("└───────────────────┘");
 		} else {
 			System.out.println("┌──────────────────────────────────────────┐");
 			System.out.println("│ 1.리뷰 보기 2.예매하기 0.홈으로 돌아가기 │");
 			System.out.println("└──────────────────────────────────────────┘");
+		}
+		while (true) {
 			System.out.print("선택 >>> ");
 			switch (ScanUtil.nextInt()) {
 			case 1:
-				return View2.REVIEW;
-			case 2:
-				if (ControllerV2.userInfo == null) {
-					System.out.println("로그인후 이용 가능합니다.");
-					return View2.HOME;
-				} else {
-					return View2.DRAMA_TICKETTING;
+				if (new Date().equals(theaterStart)
+						|| new Date().after(theaterStart)) {
+					return View2.REVIEW;
 				}
-			case 3:
+				break;
+			case 2:
+				if (new Date().equals(theaterStart)
+						|| (new Date().after(theaterStart)
+								&& new Date().before(theaterEnd))) {
+					if (ControllerV2.userInfo == null) {
+						System.out.println("로그인후 이용 가능합니다.");
+						return View2.HOME;
+					} else {
+						return View2.DRAMA_TICKETTING;
+					}
+				}
+				break;
+			case 0:
 				selectedDrama = null;
 				return View2.HOME;
+
 			default:
-				return View2.HOME;
+				break;
 			}
 		}
+
+//		if (Integer.parseInt(String.valueOf(row.get(0).get("THEATER_START")))
+//				- Integer.parseInt(sdf.format(new Date())) > 0) { // 상영예정
+//			System.out.println("1.리뷰 자세히 보기  0.홈으로 돌아가기");
+//			switch (ScanUtil.nextInt()) {
+//			case 1:
+//				return View2.REVIEW;
+//			case 0:
+//				selectedDrama = null;
+//				return View2.HOME;
+//			default:
+//				return View2.HOME;
+//			}
+//		} else if (Integer
+//				.parseInt(String.valueOf(row.get(0).get("THEATER_END")))
+//				- Integer.parseInt(sdf.format(new Date())) < 0) {
+//			// 상영종료
+//			System.out.println("┌────────────────────────────────┐");
+//			System.out.println("│ 1.리뷰 보기  0.홈으로 돌아가기 │");
+//			System.out.println("└────────────────────────────────┘");
+//			System.out.print("선택 >>> ");
+//			switch (ScanUtil.nextInt()) {
+//			case 1:
+//				return View2.REVIEW;
+//			case 0:
+//				selectedDrama = null;
+//				return View2.HOME;
+//			default:
+//				return View2.HOME;
+//			}
+//		} else {
+//			System.out.println("┌──────────────────────────────────────────┐");
+//			System.out.println("│ 1.리뷰 보기 2.예매하기 0.홈으로 돌아가기 │");
+//			System.out.println("└──────────────────────────────────────────┘");
+//			System.out.print("선택 >>> ");
+//			switch (ScanUtil.nextInt()) {
+//			case 1:
+//				return View2.REVIEW;
+//			case 2:
+//				if (ControllerV2.userInfo == null) {
+//					System.out.println("로그인후 이용 가능합니다.");
+//					return View2.HOME;
+//				} else {
+//					return View2.DRAMA_TICKETTING;
+//				}
+//			case 0:
+//				selectedDrama = null;
+//				return View2.HOME;
+//			default:
+//				return View2.HOME;
+//			}
+//		}
 
 	}
 

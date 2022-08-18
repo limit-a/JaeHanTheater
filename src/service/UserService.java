@@ -37,15 +37,12 @@ public class UserService {
 		System.out.println("│                                                         │");
 		System.out.println("│   1.내 정보 보기   2.내 예매내역 보기   3.내 리뷰보기   │");
 		System.out.println("│                                                         │");
-		System.out.println("│\t4.내 자유게시판 보기   0.홈으로 돌아가기\t  │");
+		System.out.println("│\t4.내 자유게시판 보기   0.홈으로 돌아가기\t         │");
 		System.out.println("│                                                         │");
 		System.out.println("└─────────────────────────────────────────────────────────┘");
 		while (true) {
 			System.out.print("입력 >>> ");
 			switch (ScanUtil.nextInt()) {
-			case 0:
-				ControllerV2.pageStatus = false;
-				return View2.HOME;
 			case 1:
 				return View2.USER_STATUS;
 			case 2:
@@ -54,6 +51,9 @@ public class UserService {
 				return View2.USER_REVIEW;
 			case 4:
 				return View2.USER_BOARD;
+			case 0:
+				ControllerV2.pageStatus = false;
+				return View2.HOME;
 
 			default:
 				break;
@@ -228,7 +228,6 @@ public class UserService {
 			return View2.USER;
 		}
 		// 예매내역이 있으면 1. 돌아가기 2. 환불
-		System.out.println(myTicketList);
 		for (Map<String, Object> item : myTicketList) {
 			System.out.print(SpaceUtil.format((++count), 3, false));
 			System.out.print(SpaceUtil.format("연극명 : " + item.get("THEATER_TITLE"), 30, false));
@@ -240,7 +239,7 @@ public class UserService {
 		}
 		System.out.println("▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬");
 		try {
-			System.out.println("선택>>");
+			System.out.print("선택>>");
 			int choose = ScanUtil.nextInt();
 			if(choose == 0) return View2.USER;
 			userTicketing = myTicketList.get(choose - 1);
@@ -252,7 +251,7 @@ public class UserService {
 			// 12:19:10.0, THEATER_TIME1=19:00, THEATER_TITLE=시간을 파는 상점, THEATER_NAME=믿음관}]
 			System.out.println();
 			System.out.println("──────────────────────────────────────────────────────────────────────────────────────────────────────────");
-			System.out.println("  " + userTicketing.get("TICKETING_ID"));
+//			System.out.println("  " + userTicketing.get("TICKETING_ID"));
 			System.out.println("  " + "예매번호 : " + userTicketing.get("TICKETING_ID") + "\t극이름 :"
 					+ userTicketing.get("THEATER_TITLE") + "\t상영시간 : " + userTicketing.get("THEATER_TIME1") + "~"
 					+ userTicketing.get("THEATER_TIME2") + "\t 상영관 : " + userTicketing.get("THEATER_NAME"));
@@ -260,7 +259,7 @@ public class UserService {
 			System.out.println("┌────────────────────────┐");
 			System.out.println("│ 1.돌아가기 2. 환불하기 │");
 			System.out.println("└────────────────────────┘");
-			System.out.println("선택 >>> ");
+			System.out.print("선택 >>> ");
 			switch (ScanUtil.nextInt()) {
 			case 1:
 				userTicketing = null;
