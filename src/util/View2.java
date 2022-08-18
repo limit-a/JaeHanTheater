@@ -17,9 +17,8 @@ public interface View2 {
 	int USER_REFUND = 221;
 	int USER_REVIEW = 23;
 	int USER_RSELECT = 231;
-//	int USER_RMODIFY = 232;
-//	int USER_RDELETE = 233;
 	int USER_BOARD = 24;
+	
 
 	// 게시판 -- 박민지 // BoardService, BoardDAO
 	int BOARD = 3;

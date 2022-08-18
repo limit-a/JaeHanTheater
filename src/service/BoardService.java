@@ -1,14 +1,14 @@
 package service;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import controller.ControllerV2;
-
-import java.util.ArrayList;
-
 import dao.BoardDAO;
 import util.ScanUtil;
+import util.SpaceUtil;
 import util.View2;
 
 public class BoardService {
@@ -28,23 +28,32 @@ public class BoardService {
 	BoardDAO dao = BoardDAO.getInstance();
 
 	int selectedBoardId = -1;
-
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	
 	public int showBoard() {
 
 		List<Map<String, Object>> rows = dao.showBoard();
 
 		System.out.println("▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 게시판 리스트 ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰");
-
-		System.out.printf("%s\t%s\t\t%-35s\t%s\n", "번호","날짜","제목","작성자");
+		System.out.print(SpaceUtil.format("번호", 8, false));
+		System.out.print(SpaceUtil.format("날짜", 16, false));
+		System.out.print(SpaceUtil.format("제목", 30, false));
+		System.out.println(SpaceUtil.format("작성자", 10, false));
+		// System.out.printf("%s\t%s\t\t%-35s\t%s\n", "번호","날짜","제목","작성자");
 		System.out.println("─────────────────────────────────────────────────────────────────────────");
 		if (rows == null || rows.size() == 0) {
 		} else {
 			for (Map<String, Object> item : rows) {
-				System.out.printf("%s\t%tF\t%-30s\t%s\n", item.get("BOARD_ID"), item.get("BOARD_DATE"), item.get("BOARD_TITLE"), item.get("BOARD_NICK"));
+				System.out.print(SpaceUtil.format(item.get("BOARD_ID"), 8, false));
+				System.out.print(SpaceUtil.format(sdf.format(item.get("BOARD_DATE")), 16, false));
+				System.out.print(SpaceUtil.format(item.get("BOARD_TITLE"), 30, false));
+				System.out.println(SpaceUtil.format(item.get("BOARD_NICK"), 10, false));
+				//System.out.printf("%s\t%tF\t%-30s\t%s\n", item.get("BOARD_ID"), item.get("BOARD_DATE"),
+				//		item.get("BOARD_TITLE"), item.get("BOARD_NICK"));
 			}
 		}
 
-		System.out.println("------");
+		System.out.println("▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰");
 
 		while (true) {
 			System.out.println("┌──────────────────────────────────────────────────┐");
@@ -91,7 +100,7 @@ public class BoardService {
 			System.out.println();
 			System.out.println("  " + row.get("BOARD_WRITE"));
 			System.out.println();
-			System.out.println("  " + row.get("BOARD_DATE"));
+			System.out.println("  " + sdf.format(row.get("BOARD_DATE")));
 			System.out.println("•─────────────────────────────────────────────•");
 
 			while (true) {

@@ -65,9 +65,13 @@ public class ReviewService {
 		// 1. 연극에 딸린 리뷰 상황 보여주기
 		String drama = (String) dramaService.selectedDrama;
 		Map<String, Object> dramaInfo = dao.dramaInfo(drama);
-		System.out.println("<" + drama + "> 리뷰 게시판");
+		System.out.println(); //ControllerV2.clearScreen();
+		System.out.println("▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰");
+		System.out.println("⸙" + drama + "⸙  리뷰 게시판");
 		if (dramaInfo == null || dramaInfo.size() == 0) {
 			System.out.println("등록된 리뷰가 없습니다.");
+			System.out.println("▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰");
+			
 			String userID = (String) ControllerV2.userInfo.get("USER_ID");
 			List<Map<String, Object>> myticket = dao.myTicketing(userID, drama);
 			if (myticket == null || myticket.size() == 0) {
@@ -76,7 +80,9 @@ public class ReviewService {
 				return View2.DRAMA;
 			} else {
 				System.out.println("예매내역이 있으므로 리뷰 작성이 가능합니다.");
-				System.out.println("1. 리뷰 작성하기 0. 연극 홈으로 돌아가기");
+				System.out.println("┌──────────────────────────────────────────┐");
+				System.out.println("│ 1. 리뷰 작성하기 0. 연극 홈으로 돌아가기 │");
+				System.out.println("└──────────────────────────────────────────┘");
 				System.out.print("입력 >>> ");
 				switch (ScanUtil.nextInt()) {
 				case 1:
@@ -132,7 +138,9 @@ public class ReviewService {
 		while (true) {
 			if (ControllerV2.loggedInUser == false) {
 				System.out.println("비회원은 리뷰 조회/작성이 제한됩니다.");
-				System.out.println("1. 리뷰 상세 조회하기 0. 연극 홈으로 돌아가기");
+				System.out.println("┌─────────────────────────────────────────────┐");
+				System.out.println("│ 1. 리뷰 자세히 보기 0. 연극 홈으로 돌아가기 │");
+				System.out.println("└─────────────────────────────────────────────┘");
 			} else {
 				System.out.println("1. 리뷰 상세 조회하기 2. 리뷰 작성하기 0. 연극 홈으로 돌아가기");
 			}
