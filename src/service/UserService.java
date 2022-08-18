@@ -124,6 +124,60 @@ public class UserService {
 		return View2.USER_STATUS;
 	}
 
+	public int showUserReview() {
+		List<Map<String, Object>> rows = userDAO.showUserReview();
+		if (rows == null || rows.size() == 0) {
+			System.out.println("유저가 작성한 리뷰가 없습니다.");
+			return View2.USER;
+		} else {
+			System.out.println(rows);
+			System.out.println("1. 선택, 0. 나가기");
+			while (true) {
+				System.out.print("입력 >>> ");
+				switch (ScanUtil.nextInt()) {
+				case 1:
+					return View2.USER_RSELECT;
+				case 0:
+					return View2.USER;
+
+				default:
+					break;
+				}
+			}
+		}
+	}
+
+	public int selectUserReview() {
+		System.out.print("조회할 리뷰 번호 입력 >>> ");
+		int input = ScanUtil.nextInt();
+		Map<String, Object> row = userDAO.selectUserReview(input);
+
+		if (row == null || row.size() == 0) {
+			System.out.println("글이 존재하지 않습니다");
+			return View2.USER_REVIEW;
+		} else {
+			System.out.println("▶ 글 번호: " + row.get("REVIEW_ID"));
+			System.out.println("▶ 평점: " + row.get("REVIEW_SCORE"));
+			System.out.println("▶ 리뷰 내용 ");
+			System.out.println(row.get("REVIEW_CONTENT"));
+			System.out.println("0. 돌아가기");
+			System.out.println(">>> ");
+			while (true) {
+				switch (ScanUtil.nextInt()) {
+//				case 1:					
+//					return View2.USER_RMODIFY;
+//				case 2:
+//					return View2.USER_RDELETE;
+				case 0:
+					return View2.USER_REVIEW;
+					
+				default:
+					break;
+				}
+			}
+		}
+	}
+
 	public int showUserBoard() {
 		Map<String, Object> row = userDAO.showUserBoard();
 		if (row == null || row.size() == 0) {
@@ -212,13 +266,5 @@ public class UserService {
 		   
 		}
 	
-	
-
-
-	
-//	public int showUserReview() {
-//		Map<String, Object> row = userDAO.showUserReview();
-//		return 0;
-//	}
 
 }

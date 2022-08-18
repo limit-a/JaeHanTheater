@@ -71,8 +71,17 @@ public class ControllerV2 {
 				view = userService.refundTicketing();
 				break;
 			case View2.USER_REVIEW:
-//				view = userService.showUserReview();
+				view = userService.showUserReview();
 				break;
+			case View2.USER_RSELECT:
+				view = userService.selectUserReview();
+				break;
+//			case View2.USER_RMODIFY:
+//				view = userService.modifyUserReview();
+//				break;
+//			case View2.USER_RDELETE:
+//				view = userService.deleteUserReview();
+//				break;
 			case View2.USER_BOARD:
 				view = userService.showUserBoard();
 				break;
@@ -101,12 +110,6 @@ public class ControllerV2 {
 				break;
 			case View2.DRAMA_TICKETTING:
 				view = dramaService.dramaTicketing();
-				break;
-			case View2.DRAMA_REVIEW:
-				view = dramaService.dramaReview();
-				break;
-			case View2.DRAMA_REFUND:
-				view = dramaService.ticketRefund();
 				break;
 
 			case View2.REVIEW:
