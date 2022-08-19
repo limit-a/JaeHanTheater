@@ -38,7 +38,7 @@ public class ReviewDAO {
 	public List<Map<String, Object>> myTicketing(String userId, Object selectedDrama) {
 		sql = "     SELECT DISTINCT A.USER_ID, "
 				+ "        B.TICKETING_ID, "
-				+ "        D.THEATER_TITLE "
+				+ "        D.* "
 				+ "   FROM CLIENT A, TICKETING B, TICKET C, THEATER D "
 				+ "  WHERE A.USER_ID=B.USER_ID "
 				+ "    AND B.TICKETING_ID=C.TICKETING_ID "

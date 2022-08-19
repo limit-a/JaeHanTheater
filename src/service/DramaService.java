@@ -43,6 +43,8 @@ public class DramaService {
 		List<Map<String, Object>> Dlist = new ArrayList<Map<String, Object>>();
 
 		int count = 0;
+		System.out.println(); 
+		System.out.println(); 
 		System.out.println(); // ControllerV2.clearScreen();
 		// 시간 기준으로 지나간 연극의 목록을 보여주기
 		System.out.println("▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬");
@@ -101,8 +103,11 @@ public class DramaService {
 	}
 
 	public int dramaTicketing() {
+		
 
-		System.out.println(); // ControllerV2.clearScreen();
+		System.out.println(); 
+		System.out.println(); 
+		System.out.println(); 
 		System.out.println(
 				"▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰");
 		System.out.println("[예매 가능 연극]");
@@ -144,7 +149,7 @@ public class DramaService {
 		System.out.print("선택 >>> ");
 		int choose = ScanUtil.nextInt();
 		if (choose > nDrama.size() || choose < 1) {
-			System.out.println("해당 극없음");
+			System.out.println("해당하는 극이 없습니다.");
 			return View2.DRAMA_TICKETTING;
 		}
 		System.out.print("예매 수량 >>> ");
@@ -160,13 +165,15 @@ public class DramaService {
 		if (pass.equals(ControllerV2.userInfo.get("USER_PW"))) {
 			List<Object> param2 = new ArrayList<Object>();
 			param2.add(nDrama.get(choose - 1).get("THEATER_ID"));
-			// ControllerV2.clearScreen();
+			System.out.println(); 
+			System.out.println(); 
+			System.out.println(); 
 			System.out.println("═══════════════ 명세서 ═══════════════");
 			System.out.println(
-					"극이름 : " + nDrama.get(choose - 1).get("THEATER_TITLE"));
-			System.out.println("극 상영날 :"
+					"연극명 : " + nDrama.get(choose - 1).get("THEATER_TITLE"));
+			System.out.println("공연날짜 :"
 					+ sdf.format(nDrama.get(choose - 1).get("THEATER_DATE")));
-			System.out.println("예매 수 : " + qty);
+			System.out.println("예매 수량 : " + qty);
 			System.out.println("총 금액 : " + qty * Integer.parseInt(String
 					.valueOf(nDrama.get(choose - 1).get("THEATER_PRICE"))));
 			System.out.println("══════════════════════════════════════");
@@ -217,7 +224,9 @@ public class DramaService {
 			e.printStackTrace();
 		}
 
-		// 시간을 기준으로 연극 날짜와 비교하여 공연종료, 공연중, 공연예정 구분
+		System.out.println(); 
+		System.out.println(); 
+		System.out.println();
 		System.out.println("•─────────────────── 연극 정보 ───────────────────•");
 		if (new Date().after(theaterEnd)) {
 			System.out.println("[공연 종료]");

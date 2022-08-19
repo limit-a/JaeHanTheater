@@ -28,8 +28,13 @@ public class UserService {
 	UserDAO userDAO = UserDAO.getInstance();
 	Map<String, Object> userTicketing = null;
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	ReviewService reviewService = ReviewService.getInstance();
 
 	public int showPage() {
+		System.out.println(); 
+		System.out.println(); 
+		System.out.println(); 
+		
 		Object nick = ControllerV2.userInfo.get("USER_NICK");
 		System.out.println("─────────────────────────────────");
 		System.out.println("'" + nick + "'님 환영합니다.");
@@ -37,7 +42,7 @@ public class UserService {
 		System.out.println("│                                                         │");
 		System.out.println("│   1.내 정보 보기   2.내 예매내역 보기   3.내 리뷰보기   │");
 		System.out.println("│                                                         │");
-		System.out.println("│\t4.내 자유게시판 보기   0.홈으로 돌아가기\t         │");
+		System.out.println("│      4.내 자유게시판 보기   0.홈으로 돌아가기           │");
 		System.out.println("│                                                         │");
 		System.out.println("└─────────────────────────────────────────────────────────┘");
 		while (true) {
@@ -62,6 +67,10 @@ public class UserService {
 	}
 
 	public int showStatus() {
+		System.out.println(); 
+		System.out.println(); 
+		System.out.println(); 
+		
 		Map<String, Object> info = ControllerV2.userInfo;
 		System.out.println("════════════ 내 정보 ════════════");
 		System.out.println("아이디 : " + info.get("USER_ID"));
@@ -130,8 +139,20 @@ public class UserService {
 			System.out.println("유저가 작성한 리뷰가 없습니다.");
 			return View2.USER;
 		} else {
-			System.out.println(rows);
-			System.out.println("1. 선택, 0. 나가기");
+			System.out.println(); 
+			System.out.println(); 
+			System.out.println(); 
+			System.out.println("═══════════════════════════════════════════════════════════════════════════════════════════════════");
+			for (Map<String, Object> item : rows) {
+				System.out.print(item.get("THEATER_TITLE") + "\t");
+				reviewService.printReviewLine(item);
+				//  스코어, 티켓팅번호, 리뷰내용
+			}
+			System.out.println("═══════════════════════════════════════════════════════════════════════════════════════════════════");
+			System.out.println();
+			System.out.println("┌────────────────────┐");
+			System.out.println("│ 1. 선택, 0. 나가기 │");
+			System.out.println("└────────────────────┘");
 			while (true) {
 				System.out.print("입력 >>> ");
 				switch (ScanUtil.nextInt()) {
@@ -156,12 +177,14 @@ public class UserService {
 			System.out.println("글이 존재하지 않습니다");
 			return View2.USER_REVIEW;
 		} else {
-			System.out.println("•─────────────────────────────────────────────•");
+			System.out.println(); 
+			System.out.println(); 
+			System.out.println(); 
 			System.out.println(" ▶ 글 번호: " + row.get("REVIEW_ID"));
 			System.out.println(" ▶ 평점: " + row.get("REVIEW_SCORE"));
 			System.out.println(" ▶ 리뷰 내용 ");
 			System.out.println(" " + row.get("REVIEW_CONTENT"));
-			System.out.println("•─────────────────────────────────────────────•");
+			System.out.println();
 			System.out.println("0. 돌아가기");
 			System.out.println(">>> ");
 			while (true) {
@@ -218,13 +241,14 @@ public class UserService {
 
 	public int showMyTicketing() {
 
-		System.out.println("▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ 내 예매내역 ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬");
+		System.out.println("▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ 내 예매내역 ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬");
 		int count = 0;
 		List<Map<String, Object>> myTicketList = new ArrayList<Map<String, Object>>();
 		myTicketList = userDAO.myTicketList();
 
 		if (myTicketList == null) {
 			System.out.println("예매 내역이 없습니다 ! ");
+			System.out.println("▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬");
 			return View2.USER;
 		}
 		// 예매내역이 있으면 1. 돌아가기 2. 환불
@@ -237,7 +261,7 @@ public class UserService {
 //		      System.out.println(++count + "극 이름:" + item.get("THEATER_TITLE") + "예매 수량 " + item.get("TICKETING_QTY") 
 //			  + "결제금액 :" + item.get("A.TICKETING_QTY*C.THEATER_PRICE") + "구매시간:" +sdf.format(item.get("TICKETING_DATE")));
 		}
-		System.out.println("▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬");
+		System.out.println("▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬");
 		try {
 			System.out.print("선택>>");
 			int choose = ScanUtil.nextInt();

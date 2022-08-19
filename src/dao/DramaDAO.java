@@ -102,7 +102,7 @@ public class DramaDAO {
       List<Map<String, Object>> row = jdbc.selectList(sql);
 
       
-      sql = "INSERT INTO TICKET VALUES(LPAD(SEQ_TICKET.NEXTVAL,4,'0'),'"+row.get(0).get("TICKETING_ID")+"','" +param2.get(0)+"')";
+      sql = "INSERT INTO TICKET VALUES('22'||LPAD(SEQ_TICKET.NEXTVAL,4,'0'),'"+row.get(0).get("TICKETING_ID")+"','" +param2.get(0)+"')";
       
       for(int i = 1; i <= Integer.parseInt(String.valueOf(param.get(0))); i++){
          jdbc.update(sql);

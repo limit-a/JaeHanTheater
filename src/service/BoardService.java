@@ -33,7 +33,15 @@ public class BoardService {
 	public int showBoard() {
 
 		List<Map<String, Object>> rows = dao.showBoard();
-
+		ControllerV2.clearScreen();
+		System.out.println(); 
+		System.out.println(); 
+		System.out.println(); 
+		System.out.println(); 
+		System.out.println(); 
+		System.out.println(); 
+		System.out.println(); 
+		System.out.println(); 
 		System.out.println("▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 게시판 리스트 ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰");
 		System.out.print(SpaceUtil.format("번호", 8, false));
 		System.out.print(SpaceUtil.format("날짜", 16, false));
@@ -54,6 +62,7 @@ public class BoardService {
 		}
 
 		System.out.println("▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰");
+		System.out.println();
 
 		while (true) {
 			System.out.println("┌──────────────────────────────────────────────────┐");
@@ -94,14 +103,21 @@ public class BoardService {
 		} else {
 			selectedBoardId = input;
 
-			System.out.println();
-			System.out.println("•─────────────────────────────────────────────•");
+			System.out.println(); 
+			System.out.println(); 
+			System.out.println(); 
+			System.out.println(); 
+			System.out.println(); 
+			System.out.println(); 
+			System.out.println(); 
+			System.out.println(); 
+			System.out.println("•───────────────────────────────────────────────────────────────────•");
 			System.out.println("  " + row.get("BOARD_TITLE") + "\t" + "작성자 : " + row.get("BOARD_NICK"));
 			System.out.println();
 			System.out.println("  " + row.get("BOARD_WRITE"));
 			System.out.println();
 			System.out.println("  " + sdf.format(row.get("BOARD_DATE")));
-			System.out.println("•─────────────────────────────────────────────•");
+			System.out.println("•───────────────────────────────────────────────────────────────────•");
 
 			while (true) {
 				
