@@ -65,15 +65,17 @@ public class ReviewService {
 		// 1. 연극에 딸린 리뷰 상황 보여주기
 		String drama = (String) dramaService.selectedDrama;
 		Map<String, Object> dramaInfo = dao.dramaInfo(drama);
-		System.out.println(); 
-		System.out.println(); 
-		System.out.println(); //ControllerV2.clearScreen();
-		System.out.println("────────────────────────────────────────────────────────────────────────────────────────────────");
+		System.out.println();
+		System.out.println();
+		System.out.println(); // ControllerV2.clearScreen();
+		System.out.println(
+				"────────────────────────────────────────────────────────────────────────────────────────────────");
 		System.out.println("⸙" + drama + "⸙  리뷰 게시판");
 		if (dramaInfo == null || dramaInfo.size() == 0) {
 			System.out.println("등록된 리뷰가 없습니다.");
-			System.out.println("────────────────────────────────────────────────────────────────────────────────────────────────");
-			
+			System.out.println(
+					"────────────────────────────────────────────────────────────────────────────────────────────────");
+
 			String userID = (String) ControllerV2.userInfo.get("USER_ID");
 			List<Map<String, Object>> myticket = dao.myTicketing(userID, drama);
 			if (myticket == null || myticket.size() == 0) {
@@ -103,13 +105,15 @@ public class ReviewService {
 		if (ControllerV2.loggedInUser == false) {
 			List<Map<String, Object>> rows = dao.showReview(drama);
 			System.out.printf("\n%s%14s%14s%29s\n", "리뷰번호", "평점", "예매번호", "리뷰");
-			System.out.println("┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈");
+			System.out.println(
+					"┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈");
 			if (rows == null || rows.size() == 0) {
 			} else {
 				for (Map<String, Object> item : rows) {
 					printReviewLine(item);
 				}
-				System.out.println("────────────────────────────────────────────────────────────────────────────────────────────────");
+				System.out.println(
+						"────────────────────────────────────────────────────────────────────────────────────────────────");
 			}
 
 			// 3-1. 회원인 경우: 나 외의 다른 사람이 쓴 리뷰 보여주기
@@ -118,13 +122,15 @@ public class ReviewService {
 			String userID = (String) ControllerV2.userInfo.get("USER_ID");
 			List<Map<String, Object>> rows = dao.membershowReview(userID, drama);
 			System.out.printf("\n%s%14s%14s%29s\n", "리뷰번호", "평점", "예매번호", "리뷰");
-			System.out.println("┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈");
+			System.out.println(
+					"┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈");
 			if (rows == null || rows.size() == 0) {
 			} else {
 				for (Map<String, Object> item : rows) {
 					printReviewLine(item);
 				}
-				System.out.println("────────────────────────────────────────────────────────────────────────────────────────────────");
+				System.out.println(
+						"────────────────────────────────────────────────────────────────────────────────────────────────");
 			}
 
 			// 3-2. 회원인 경우: 내가 쓴 리뷰 보여주기
@@ -136,16 +142,16 @@ public class ReviewService {
 				for (Map<String, Object> item : myRow) {
 					printReviewLine(item);
 				}
-				System.out.println("────────────────────────────────────────────────────────────────────────────────────────────────");
+				System.out.println(
+						"────────────────────────────────────────────────────────────────────────────────────────────────");
 			}
 		}
-
-
 
 		while (true) {
 			if (ControllerV2.loggedInUser == false) {
 				System.out.println("비회원은 리뷰 조회/작성이 제한됩니다.");
-				System.out.println("▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰");
+				System.out.println(
+						"────────────────────────────────────────────────────────────────────────────────────────────────");
 				System.out.println();
 				System.out.println("┌─────────────────────────────────────────────┐");
 				System.out.println("│ 1. 리뷰 자세히 보기 0. 연극 홈으로 돌아가기 │");
@@ -155,17 +161,24 @@ public class ReviewService {
 				System.out.println("│ 1. 리뷰 상세 조회하기 2. 리뷰 작성하기 0. 연극 홈으로 돌아가기 │");
 				System.out.println("└────────────────────────────────────────────────────────────────┘");
 			}
-			System.out.print("입력 >>> ");
-			switch (ScanUtil.nextInt()) {
-			case 1:
-				return View2.REVIEW_SELECT;
-			case 2:
-				return View2.REVIEW_WRITE;
-			case 0:
-				return View2.DRAMA;
-			default:
-				break;
+			while (true) {
 
+				System.out.print("입력 >>> ");
+				switch (ScanUtil.nextInt()) {
+				case 1:
+					return View2.REVIEW_SELECT;
+				case 2:
+					if (ControllerV2.loggedInUser == true) {
+						return View2.REVIEW_WRITE;
+					}
+					break;
+				case 0:
+					return View2.DRAMA;
+				
+				default:
+					break;
+
+				}
 			}
 		}
 	}
@@ -180,9 +193,9 @@ public class ReviewService {
 		if (row == null || row.size() == 0) {
 			System.out.println("글이 존재하지 않습니다");
 		} else {
-			System.out.println(); 
-			System.out.println(); 
-			System.out.println(); 
+			System.out.println();
+			System.out.println();
+			System.out.println();
 			System.out.println("▶ 글 번호: " + row.get("REVIEW_ID"));
 			System.out.println("▶ 평점: " + row.get("REVIEW_SCORE"));
 			System.out.println("▶ 리뷰 내용 ");
@@ -191,7 +204,7 @@ public class ReviewService {
 
 		while (true) {
 			if (ControllerV2.loggedInUser == false) {
-				System.out.println(ControllerV2.loggedInUser);
+				System.out.println();
 				System.out.print("아무 키나 입력시 리뷰게시판으로 돌아갑니다.");
 				ScanUtil.nextLine();
 				return View2.REVIEW;
@@ -245,11 +258,13 @@ public class ReviewService {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 				String date = sdf.format(myticket.get(i).get("THEATER_DATE"));
 				System.out.println();
-				System.out.println("▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬");
+				System.out.println(
+						"▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬");
 				System.out.println();
 				System.out.printf("%d. [예매번호] %s [공연일] %s\n", i + 1, myticket.get(i).get("TICKETING_ID"), date);
 				System.out.println();
-				System.out.println("▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬");
+				System.out.println(
+						"▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬");
 			}
 			System.out.print("리뷰를 작성할 예매번호를 선택하세요>> ");
 		}
