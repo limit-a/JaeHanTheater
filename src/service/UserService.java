@@ -33,13 +33,13 @@ public class UserService {
 		Object nick = ControllerV2.userInfo.get("USER_NICK");
 		System.out.println("------");
 		System.out.println("'" + nick + "'님 환영합니다.");
-		System.out.println("┌───────────────────────┐");
-		System.out.println("│ 0. 홈으로 돌아가기    │");
-		System.out.println("│ 1. 내 정보 보기       │");
-		System.out.println("│ 2. 내 예매내역 보기   │");
-		System.out.println("│ 3. 내 리뷰보기        │");
-		System.out.println("│ 4. 내 자유게시판 보기 │");
-		System.out.println("└───────────────────────┘");
+		System.out.println("┌─────────────────────────────────────────────────────────┐");
+		System.out.println("│                                                         │");
+		System.out.println("│   1.내 정보 보기   2.내 예매내역 보기   3.내 리뷰보기   │");
+		System.out.println("│                                                         │");
+		System.out.println("│\t4.내 자유게시판 보기   0.홈으로 돌아가기\t  │");
+		System.out.println("│                                                         │");
+		System.out.println("└─────────────────────────────────────────────────────────┘");
 		while (true) {
 			System.out.print("입력 >>> ");
 			switch (ScanUtil.nextInt()) {
@@ -131,7 +131,9 @@ public class UserService {
 			return View2.USER_STATUS;
 		} else {
 			System.out.println(row);
-			System.out.println("1. 선택, 0. 나가기");
+			System.out.println("┌──────────────────────┐");
+			System.out.println("│  1. 선택  0. 나가기  │");
+			System.out.println("└──────────────────────┘");
 			while (true) {
 				System.out.print("입력 >>> ");
 				switch (ScanUtil.nextInt()) {
